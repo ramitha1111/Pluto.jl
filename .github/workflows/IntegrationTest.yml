@@ -1,3 +1,8 @@
+# Optimized by ci-cost (https://github.com/mariotavarez/ci-cost)
+# Applied 1 optimization:
+# - [MEDIUM] Add concurrency group to "IntegrationTest.yml"
+# Estimated savings: ~2 min/run
+#
 name: Test dependent packages
 
 # based on https://github.com/SciML/SciMLBase.jl/blob/master/.github/workflows/Downstream.yml, thanks!
@@ -26,6 +31,10 @@ on:
         branches-ignore:
             - release
 
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 env:
     JULIA_PLUTO_IGNORE_CDN_BUNDLE_WARNING: true
 
